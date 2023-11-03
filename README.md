@@ -37,7 +37,7 @@ Smart detection app to detect road damage and calculate the amount of damage to 
 ### Prerequisites
 For maximum results, please follow the following requirements:
 - Use python >= 3.10
-- Minimum RAM >= 8GB 
+- Minimum RAM >= 4GB 
 - OS Linux: (Ex: Ubuntu 22.04)
 
 ### Installation
