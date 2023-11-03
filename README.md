@@ -48,7 +48,7 @@ sudo apt install python3.10
 ```
 2. Clone the repo
 ```
-https://github.com/ptirtekdevelop/Si_Depi.git
+git clone https://github.com/ptirtekdevelop/Si_Depi.git
 ```
 3. Install library on OS
 ```
