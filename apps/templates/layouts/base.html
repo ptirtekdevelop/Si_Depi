@@ -1,0 +1,124 @@
+<!--
+
+=========================================================
+* Volt Free - Bootstrap 5 Dashboard
+=========================================================
+
+* Product Page: https://themesberg.com/product/admin-dashboard/volt-bootstrap-5-dashboard
+* Copyright 2021 Themesberg (https://www.themesberg.com)
+* License (https://themesberg.com/licensing)
+
+* Designed and coded by https://themesberg.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. Please contact us to request a removal.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Primary Meta Tags -->
+
+<title>
+    Si Depi Dashboard - {% block title %}{% endblock %}
+</title>
+
+<link rel="canonical" href="https://appseed.us/product/volt-dashboard/flask/">
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="120x120" href="{{ config.ASSETS_ROOT }}/img/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ config.ASSETS_ROOT }}/img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ config.ASSETS_ROOT }}/img/favicon/favicon-16x16.png">
+<link rel="manifest" href="{{ config.ASSETS_ROOT }}/img/favicon/site.webmanifest">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+<link type="text/css" href="{{ config.ASSETS_ROOT }}/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+
+<link type="text/css" href="{{ config.ASSETS_ROOT }}/vendor/notyf/notyf.min.css" rel="stylesheet">
+<link type="text/css" href="{{ config.ASSETS_ROOT }}/css/volt.css" rel="stylesheet">
+
+<!-- FA Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Data Table -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
+
+<!-- Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+<!-- Specific Page JS goes HERE  -->    
+{% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+<body>
+
+    {% include 'includes/sidebar.html' %}
+    
+    <main class="content">
+
+      {% include 'includes/navigation.html' %}
+
+      {% block content %}{% endblock content %} 
+
+      {% include 'includes/footer.html' %}
+
+    </main>
+
+  {% include 'includes/scripts.html' %}
+    
+  <!-- Specific Page JS goes HERE  -->
+  {% block javascripts %}{% endblock javascripts %}  
+  <script>
+     const notyf = new Notyf({
+      position: {
+        x: 'right',
+        y: 'top',
+      },
+      duration: 5000,
+    });
+
+    // Function to show notification with message and type
+    function showNotification(message, type) {
+      notyf.open({
+        type: type,
+        message: message,
+        // Customize notification appearance as needed
+      });
+    }
+
+    // Check for flashed messages and show notifications
+    function checkAndShowNotifications() {
+      const messages = JSON.parse('{{ get_flashed_messages(with_categories=true) | tojson | safe }}');
+      if (messages) {
+        messages.forEach((item) => {
+          showNotification(item[1], item[0]);
+        });
+      }
+    }
+
+    // Call the function to check and show notifications
+    checkAndShowNotifications();
+  </script>
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const optionsDate = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+  
+      const formattedDate = now.toLocaleString('en-US', optionsDate);
+      const formattedTime = now.toLocaleString('en-US', optionsTime);
+  
+      const formattedDateTime = `${formattedDate} | ${formattedTime}`;
+      document.querySelector('#datetime').textContent = formattedDateTime;
+    }
+  
+    setInterval(updateDateTime, 1000);
+  </script>
+      
+</body>
+</html>

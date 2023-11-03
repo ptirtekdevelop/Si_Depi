@@ -1,0 +1,6 @@
+__pycache__/
+env/
+test.py
+apps/static/uploads/
+apps/static/videodetect
+*.sql

@@ -1,0 +1,148 @@
+<!--
+
+=========================================================
+* Volt Free - Bootstrap 5 Dashboard
+=========================================================
+
+* Product Page: https://themesberg.com/product/admin-dashboard/volt-premium-bootstrap-5-dashboard
+* Copyright 2020 Themesberg (https://www.themesberg.com)
+* License (https://themesberg.com/licensing)
+
+* Designed and coded by https://themesberg.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. Please contact us to request a removal.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Primary Meta Tags -->
+
+<title>
+    Si Depi Dashboard - {% block title %}{% endblock %} | AppSeed
+</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="canonical" href="https://appseed.us/product/volt-dashboard/flask/">
+
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="120x120" href="{{ config.ASSETS_ROOT }}/img/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ config.ASSETS_ROOT }}/img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ config.ASSETS_ROOT }}/img/favicon/favicon-16x16.png">
+<link rel="manifest" href="{{ config.ASSETS_ROOT }}/img/favicon/site.webmanifest">
+<link rel="mask-icon" href="{{ config.ASSETS_ROOT }}/img/favicon/safari-pinned-tab.svg" color="#ffffff">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+<!-- FA Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" 
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Sweet Alert -->
+<link type="text/css" href="{{ config.ASSETS_ROOT }}/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- Notyf -->
+<link type="text/css" href="{{ config.ASSETS_ROOT }}/vendor/notyf/notyf.min.css" rel="stylesheet">
+
+<!-- Volt CSS -->
+<link type="text/css" href="{{ config.ASSETS_ROOT }}/css/custom.css" rel="stylesheet">
+<link type="text/css" href="{{ config.ASSETS_ROOT }}/css/volt.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<!-- Specific Page JS goes HERE  -->    
+{% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+<body>
+
+    {% block content %}{% endblock content %}
+
+    {% include 'includes/scripts.html' %}
+
+  <!-- Specific Page JS goes HERE  -->
+  {% block javascripts %}{% endblock javascripts %}
+  <script>
+    const notyf = new Notyf({
+    position: {
+      x: 'right',
+      y: 'top',
+    },
+    types: [
+      {
+        type: 'success',
+        background: '#28a745', // Ganti dengan warna yang Anda inginkan untuk tipe 'success'
+        icon: {
+          className: 'fas fa-check-circle', // Ganti dengan ikon yang sesuai
+          tagName: 'span',
+          color: '#fff',
+        },
+        dismissible: true,
+      },
+      {
+        type: 'info',
+        background: '#17a2b8', // Ganti dengan warna yang Anda inginkan untuk tipe 'info'
+        icon: {
+          className: 'fas fa-info-circle', // Ganti dengan ikon yang sesuai
+          tagName: 'span',
+          color: '#fff',
+        },
+        dismissible: true,
+      },
+      {
+        type: 'warning',
+        background: '#ffc107', // Ganti dengan warna yang Anda inginkan untuk tipe 'warning'
+        icon: {
+          className: 'fas fa-exclamation-triangle', // Ganti dengan ikon yang sesuai
+          tagName: 'span',
+          color: '#fff',
+        },
+        dismissible: true,
+      },
+      {
+        type: 'danger',
+        background: '#dc3545', // Ganti dengan warna yang Anda inginkan untuk tipe 'danger'
+        icon: {
+          className: 'fas fa-times-circle', // Ganti dengan ikon yang sesuai
+          tagName: 'span',
+          color: '#fff',
+        },
+        dismissible: true,
+      },
+    ],
+    duration: 5000,
+  });
+
+  // Function to show notification with message and type
+  function showNotification(message, type) {
+    notyf.open({
+      type: type,
+      message: message,
+      // Customize notification appearance as needed
+    });
+  }
+
+  // Check for flashed messages and show notifications
+  function checkAndShowNotifications() {
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                showNotification("{{ message }}", "{{ category }}");
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+  }
+
+  // Call the function to check and show notifications
+  checkAndShowNotifications();
+  </script>
+ 
+  
+</body>
+</html>

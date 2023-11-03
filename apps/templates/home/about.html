@@ -1,0 +1,158 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} About {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <div class="row pt-4 px-4">
+        <div class="col-12">
+            <div class="card border-0 shadow">
+                <div class="card-header border-bottom d-flex align-items-center justify-content-between">
+                    <h2 class="fs-5 fw-bold mb-0">About</h2>
+                </div>
+                <div class="card-body d-flex text-center align-items-center justify-content-center">
+                    <div class="row pt-2">
+                        <div class="col-12 pb-4"> 
+                            <div class="background-hero rounded-2" data-background="{{ config.ASSETS_ROOT }}/img/jalan.jpg">
+                                <div class="hero-content">
+                                    <h5>Convenience and Security Through the Latest Technology Solutions for Road Damage Detection and Classification.</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 pt-4">
+                            <h3 style="font-weight: 700;">-- Types of Road Damage --</h3>
+                            <div class="row pt-3">
+                                <div class="col-12 col-xl-3 col-sm-6 p-2">
+                                    <div class="typeroad">
+                                        <img class="rounded-2" src="{{ config.ASSETS_ROOT }}/img/road/retak_buaya.jpg" width="300px" height="200px" alt="">
+                                        <div class="card border-0 shadow p-2">
+                                            <h6 style="font-weight: 700;">Lubang</h6>
+                                            <p>(Potholes)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-3 col-sm-6 p-2">
+                                    <div class="typeroad">
+                                        <img class="rounded-2" src="{{ config.ASSETS_ROOT }}/img/road/retak_buaya.jpg" width="300px" height="200px" alt="">
+                                        <div class="card border-0 shadow p-2">
+                                            <h6 style="font-weight: 700;">Alligator Cracking</h6>
+                                            <p>(Retak Buaya)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 col-xl-3 col-sm-6 p-2">
+                                    <div class="typeroad">
+                                        <img class="rounded-2" src="{{ config.ASSETS_ROOT }}/img/road/retak_memanjang.jpg" width="300px" height="200px" alt="">
+                                        <div class="card border-0 shadow p-2">
+                                            <h6 style="font-weight: 700;">Longitudinal Cracking</h6>
+                                            <p>(Retak Memanjang)</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-12 col-xl-3 col-sm-6 p-2">
+                                    <div class="typeroad">
+                                        <img class="rounded-2" src="{{ config.ASSETS_ROOT }}/img/road/retak_melintang.png" width="300px" height="200px" alt="">
+                                        <div class="card border-0 shadow p-2">
+                                            <h6 style="font-weight: 700;">Transverse Cracking</h6>
+                                            <p>(Retak Melintang)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 pt-4">
+                            <div class="ourteam">
+                                <div class="headerteam pb-3">
+                                    <h3 class="pt-5 pb-3">-- Meet Our Team --</h3>
+                                    <p>Meet Our team, the best thing what we do is have a greet team and smile with our progress.</p>
+                                </div>
+                                <div class="row pt-4">
+                                    <div class="col-12 col-xl-3 col-sm-6 p-2">
+                                        <div class="headteam">
+                                            <div class="card rounded-circle shadow" style="background-color: #2C2E43;">
+                                                <img class="rounded-circle p-2" src="{{ config.ASSETS_ROOT }}/img/team/hendrik.png" width="250px" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="nameteam">
+                                            <div class="card">
+                                                <h5 class="pt-2">Hendrick</h5>
+                                                <p>Lead RnD Engineer</p>
+                                                <div class="teamicon">
+                                                    <a href="https://www.instagram.com/am.at3992/" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+                                                    <a href="https://www.linkedin.com/in/hendrick-rick-b081986b/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                                                    <a href="#" target="_blank"><i class="fa-brands fa-square-whatsapp"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-3 col-sm-6 p-2">
+                                        <div class="headteam">
+                                            <div class="card rounded-circle shadow" style="background-color: #2C2E43;">
+                                                <img class="rounded-circle p-2" src="{{ config.ASSETS_ROOT }}/img/team/yumna.png" width="250px" height="250px" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="nameteam">
+                                            <div class="card">
+                                                <h5 class="pt-2">Yumna Silvia</h5>
+                                                <p>RnD Engineer</p>
+                                                <div class="teamicon">
+                                                    <a href="https://www.instagram.com/yuuumna__/" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+                                                    <a href="https://www.linkedin.com/in/yumna-silvia/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                                                    <a href="#" target="_blank"><i class="fa-brands fa-square-whatsapp"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-3 col-sm-6 p-2">
+                                        <div class="headteam">
+                                            <div class="card rounded-circle shadow" style="background-color: #2C2E43;">
+                                                <img class="rounded-circle p-2" src="{{ config.ASSETS_ROOT }}/img/team/aulia.png" width="250px" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="nameteam">
+                                            <div class="card">
+                                                <h5 class="pt-2">Aulia Putri Ardi</h5>
+                                                <p>RnD Engineer</p>
+                                                <div class="teamicon">
+                                                    <a href="https://www.instagram.com/uiyyaa" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+                                                    <a href="https://www.linkedin.com/in/aulia-putri-ardi-483331248/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                                                    <a href="#" target="_blank"><i class="fa-brands fa-square-whatsapp"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-3 col-sm-6 p-2">
+                                        <div class="headteam">
+                                            <div class="card rounded-circle shadow" style="background-color: #2C2E43;">
+                                                <img class="rounded-circle p-2" src="{{ config.ASSETS_ROOT }}/img/team/arin.png" width="250px" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="nameteam">
+                                            <div class="card">
+                                                <h5 class="pt-2">Arin Cantika Musi</h5>
+                                                <p>RnD Engineer</p>
+                                                <div class="teamicon">
+                                                    <a href="https://www.linkedin.com/in/arin-cantika-musi-6124ab1aa/" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+                                                    <a href="https://www.linkedin.com/in/arin-cantika-musi-6124ab1aa/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                                                    <a href="#" target="_blank"><i class="fa-brands fa-square-whatsapp"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

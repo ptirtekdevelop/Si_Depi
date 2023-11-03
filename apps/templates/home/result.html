@@ -1,0 +1,220 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% endblock stylesheets %}
+ 
+{% block content %}
+
+   <div class="row pt-4 px-4">
+        <div class="col-12">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                    {% if 'report' in segment %}
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('views.report') }}">
+                                <i class="fa-solid fa-table-list pe-2" style="color: #838383;"></i>Report
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active">Result</li>
+                    {% else %}
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('views.index') }}">
+                                <i class="fa-solid fa-gauge pe-2" style="color: #838383;"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('views.detect') }}">Detect</a></li>
+                        <li class="breadcrumb-item active">Result</li>
+                    {% endif %}
+                </ol>
+            </nav>
+        </div>
+   </div>
+    <div class="row pt-2 ps-4 pe-4">
+        <div class="col-12 col-xl-6">
+            <div class="card border-0 shadow">
+                <div class="card-header bg-secondary border-bottom">
+                    Video Output
+                </div>
+                <div class="card-body bg-grey">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        {% if road_data is defined %}
+                            {% set download_url = road_data.video_path %}
+                            {% set new_province = get_province_name(road_data.province) %}
+                            {% set new_city = road_data.city %}
+                            {% set new_street = road_data.street_name %}
+                            {% set new_pathole = road_data.pathole %}
+                            {% set new_crocodile = road_data.crocodile %}
+                            {% set new_longitudinal = road_data.longitudinal %}
+                            {% set new_transversal = road_data.transversal %}
+                        {% else %}
+                            {% set download_url = video_filename %}
+                            {% set new_province = province %}
+                            {% set new_city = city %}
+                            {% set new_street = streetname %}
+                            {% set new_pathole = totalPathole %}
+                            {% set new_crocodile = totalCrocodile %}
+                            {% set new_longitudinal = totalLongitudinal %}
+                            {% set new_transversal = totalTransversal %}
+                        {% endif %}
+                        <video width="640" height="480" controls style="max-width: 100%;">                   
+                            <source src="{{ config.DETECT_FOLDER }}/{{ download_url }}" type="video/webm">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="row p-4">
+                        <div class="col-12" style="justify-content: center; align-items: center; display: flex;">
+                            <a href="{{ config.DETECT_FOLDER }}/{{ download_url }}" download="{{ download_url }}" class="btn btn-secondary">
+                                Download Video Result
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xl-6">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card border-0 shadow">
+                        <div class="card-header bg-secondary border-bottom">
+                            Road Data
+                        </div>
+                        <div class="card-body" style="justify-content: center;">
+                            <table>
+                                <tr>
+                                    <td style="text-align: left;"><b>Province</b></td>
+                                    <td style="text-align: left;">: {{ new_province }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;"><b>City</b></td>
+                                    <td style="text-align: left;">:  {{ new_city }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;"><b>Street Name</b></td>
+                                    <td style="text-align: left;">: {{ new_street }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-6 pt-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-header border-0">
+                            Chart Data Road Damage
+                        </div>
+                        <div class="card-body" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                            <div id="newchart" style="width: 100%; height: 100%;"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-xl-6 pt-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-header border-0">
+                            Total Detection
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between ">
+                                <div>
+                                    <div class="h6 mb-0 d-flex align-items-center">
+                                        <i class="fa-solid fa-road-circle-check me-2"></i>
+                                        Potholes
+                                    </div>
+                                    <div class="small card-stats">
+                                        Lubang
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="d-flex align-items-center fw-bold">
+                                        {{ new_pathole }}
+                                        <i class="fa-solid fa-circle-up ms-2" style="color: #696969;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between pt-3">
+                                <div>
+                                    <div class="h6 mb-0 d-flex align-items-center">
+                                        <i class="fa-solid fa-road-circle-check me-2"></i>
+                                        Alligator Cracking
+                                    </div>
+                                    <div class="small card-stats">
+                                        Retak Buaya
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="d-flex align-items-center fw-bold">
+                                        {{ new_crocodile }}
+                                        <i class="fa-solid fa-circle-up ms-2" style="color: #696969;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between pt-3">
+                                <div>
+                                    <div class="h6 mb-0 d-flex align-items-center">
+                                        <i class="fa-solid fa-road-circle-check me-2"></i>
+                                        Transverse Cracking
+                                    </div>
+                                    <div class="small card-stats">
+                                        Retak Melintang
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="d-flex align-items-center fw-bold">
+                                        {{ new_transversal }}
+                                        <i class="fa-solid fa-circle-up ms-2" style="color: #696969;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between pt-3">
+                                <div>
+                                    <div class="h6 mb-0 d-flex align-items-center">
+                                        <i class="fa-solid fa-road-circle-check me-2"></i>
+                                        Longitudinal Cracking
+                                    </div>
+                                    <div class="small card-stats">
+                                        Retak Memanjang
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="d-flex align-items-center fw-bold">
+                                        {{ new_longitudinal }}
+                                        <i class="fa-solid fa-circle-up ms-2" style="color: #696969;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable({{ data|safe }});
+        var options = {
+            title: 'Total Road Damage',
+            legend: 'bottom',
+            titleTextStyle: {
+                color: 'black', // Warna teks judul
+                fontSize: 15 // Ukuran font judul
+            },
+            colors: ['#272727', '#EA7317', '#2364AA', '#FEC601'],
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('newchart'));
+        chart.draw(data, options);
+    }
+</script>
+
+{% endblock javascripts %}

@@ -1,0 +1,360 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Report {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="row pt-4 px-4">
+        <div class="col-12">
+            <div class="card border-0 shadow">
+                <div class="card-header border-bottom d-flex align-items-center justify-content-between">
+                    <h2 class="fs-5 fw-bold mb-0">Reports</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-2 px-4">
+        <div class="col-12 col-xl-3 col-sm-6 pt-4">
+            <div class="card border-0 shadow" style="background-color: #FED766;">
+                <div class="card-header border-0">
+                    Pathole Total
+                </div>
+                <div class="card-body align-items-center justify-content-center">
+                    <h1 class="h-1">{{ pathole_sum if pathole_sum is not none else 0 }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xl-3 col-sm-6 pt-4">
+            <div class="card border-0 shadow" style="background-color: #009FB7; color: white;">
+                <div class="card-header border-0 text-bold">
+                    Crocodile Total
+                </div>
+                <div class="card-body align-items-center justify-content-center">
+                    <h1 class="text-white h-1">{{ crocodile_sum if crocodile_sum is not none else 0 }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xl-3 col-sm-6 pt-4">
+            <div class="card border-0 shadow" style="background-color: #EFF1F3;">
+                <div class="card-header border-0">
+                    Longitudinal Total
+                </div>
+                <div class="card-body align-items-center justify-content-center">
+                    <h1 class="h-1">{{ longitudinal_sum if longitudinal_sum is not none else 0 }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xl-3 col-sm-6 pt-4">
+            <div class="card border-0 shadow" style="background-color: #696773; color: white;">
+                <div class="card-header border-0">
+                    Transversal Total
+                </div>
+                <div class="card-body align-items-center justify-content-center">
+                    <h1 class="text-white h-1">{{ transversal_sum if transversal_sum is not none else 0 }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-4 px-4">
+        <div class="col-12 col-xl-4 pt-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group mb-4">
+                        <label for="province">Province</label>
+                        <select  class="form-select province-select" style="max-width: 100%;" name="province" aria-label="Default select example" id="provinceSelect">
+                            {% for row in unique_provinces %}
+                                <option value="{{ row[0] }}">{{ get_province_name(row[0]) }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="chart-container" style="position: relative; width:80vw; height: 50vh; max-width: 100%; max-height: 100%; display: flex; justify-content: center; align-items: center;">
+                        <canvas id="provinceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xl-8 pt-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group mb-4">
+                        <label for="sort_select">Choice Sort Data</label>
+                        <select  class="form-select sort-select" style="max-width: 100%;" name="sort_select" aria-label="Default select example" id="sort_select">
+                            <option value="desc">Higher Data</option>
+                            <option value="asc">Lower Data</option>
+                        </select>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 50vh; width:80vw; max-width: 100%; max-height: 100%; display: flex; justify-content: center; align-items: center;">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-4 px-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        Data Road Damage Input
+                        <a href="{{ url_for('detect.download_excel') }}" class="btn btn-success">Download Excel</a>
+                    </div>
+                   
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="tbl_road" class="table table-centered table-nowrap mb-0 rounded">
+                            <thead class="thead-light text-center">
+                                <tr>
+                                    <th rowspan="2" class="border-0 rounded-start">No</th>
+                                    <th rowspan="2" class="border-0">Time/Date</th>
+                                    <th rowspan="2" class="border-0">Province</th>
+                                    <th rowspan="2" class="border-0">City</th>
+                                    <th rowspan="2" class="border-0">Street Name</th>
+                                    <th colspan="5" class="border-0 rounded-end">Type Road Damage</th>
+                                </tr>
+                                <tr>
+                                    <th>Pathole</th>
+                                    <th>Alligator</th>
+                                    <th>Longitudinal</th>
+                                    <th>Transversal</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for road_data in road_datas %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ road_data.created_at.strftime('%d %b %Y %H:%M:%S') }}</td>
+                                    <td>{{ get_province_name(road_data.province) }}</td>
+                                    <td>{{ road_data.city }}</td>
+                                    <td>{{ road_data.street_name }}</td>
+                                    <td>{{ road_data.pathole }}</td>
+                                    <td>{{ road_data.crocodile }}</td>
+                                    <td>{{ road_data.longitudinal }}</td>
+                                    <td>{{ road_data.transversal }}</td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 5px;">
+                                            <a href="/result/{{ road_data.id }}" class="btn btn-secondary"><i class="fa-solid fa-eye"></i></a>
+                                            |
+                                            <form action="" method="POST" id="deleteForm">
+                                                <input type="hidden" name="id_data" value="{{ road_data.id }}">
+                                                <button type="button" onclick="confirmDelete();" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                            </form>
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+
+<script>
+    $(document).ready(function() {
+        $('.province-select').select2();
+        $('.sort-select').select2();
+        $('#tbl_road').DataTable();
+
+        $('#provinceSelect').on('change', function() {
+            updateGraph();
+        });
+
+        $('#sort_select').on('change', function() {
+            updateChart();
+        });
+        updateGraph();
+        updateChart();
+    });
+
+    // Bar Chart for highest and lowest
+    var labels = {{ labels|tojson|safe }};
+    var pathole_data = {{ pathole_data|tojson|safe }};
+    var crocodile_data = {{ crocodile_data|tojson|safe }};
+    var longitudinal_data = {{ longitudinal_data|tojson|safe }};
+    var transversal_data = {{ transversal_data|tojson|safe }};
+    var patholeDataset = {
+            label: 'Pathole',
+            data: pathole_data,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+    };
+    var crocodileDataset = {
+        label: 'Crocodile',
+        data: crocodile_data,
+        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+    };
+    var longitudinalDataset = {
+        label: 'Longitudinal',
+        data: longitudinal_data,
+        backgroundColor: 'rgba(255, 205, 86, 0.2)',
+    };
+    var transversalDataset = {
+        label: 'Transversal',
+        data: transversal_data,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+    };
+
+    var chartConfig1 = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [patholeDataset, crocodileDataset, longitudinalDataset, transversalDataset]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                    },
+                    title: {
+                        display: true,
+                        text: '4 provinces highest and lowest number of road damage',
+                    },
+                }
+            }
+    };
+
+    var ctx1 = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx1, chartConfig1);
+    
+
+    // Bart Chart / Province
+
+    var data_chart2 = {
+        labels: ["Pathole", "Crocodile", "Longitudinal", "Transversal"],
+        datasets: [{
+            label: "Total Damage",
+            data: {{ data_label|tojson|safe }}, // Gantilah dengan data aktual dari Flask
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+            ],
+        }]
+    };
+
+
+    var ctx2 = document.getElementById('provinceChart').getContext('2d');
+    var barChart = new Chart(ctx2, {
+        type: 'bar',
+        data: data_chart2,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false, // Menonaktifkan tampilan legenda
+                },
+                title: {
+                    display: true,
+                    text: 'Data Total Road Damage in Province',
+                    
+                }
+            },
+            
+        }
+    });
+
+    function updateGraph() {
+        var selectedProvince = document.getElementById('provinceSelect').value;
+        var dataLabelElement = document.getElementById('provinceSelect');
+        var dataLabel = dataLabelElement.hasAttribute('data-data_label') ? JSON.parse(dataLabelElement.getAttribute('data-data_label')) : [];
+
+        if (selectedProvince) {
+            // Buat permintaan ke server hanya jika province terpilih
+            fetch(`/update_graph?province=${selectedProvince}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Perbarui data grafik dengan data yang diterima dari server
+                    barChart.data.datasets[0].data = data;
+                    barChart.update();
+                });
+        } else if (dataLabel.length > 0) {
+            // Setel data awal grafik jika province tidak terpilih, asalkan dataLabel memiliki nilai
+            barChart.data.datasets[0].data = dataLabel;
+            barChart.update();
+        }
+    }
+
+    function updateChart() {
+        var sortSelect = document.getElementById('sort_select');
+        var sortOption = sortSelect.value;
+
+        fetch(`/update_chart?sort_option=${sortOption}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data[0].length !== 0) {
+                    // Perbarui dataset grafik dengan data yang diterima dari server
+                    myChart.data.labels = data[0]; // Mengatur label
+                    patholeDataset.data = data[1];
+                    crocodileDataset.data = data[2];
+                    longitudinalDataset.data = data[3];
+                    transversalDataset.data = data[4];
+                    myChart.update();
+                    
+                } else{
+                    data.labels.push("Default");
+                    data.pathole_data.push(0);
+                    data.crocodile_data.push(0);
+                    data.longitudinal_data.push(0);
+                    data.transversal_data.push(0);
+                    myChart.update();
+                }   
+        });
+    }
+
+    // Confirm Delete
+
+    const swalWithBootstrapButtons = Swal.mixin({
+    customClass:
+
+    {
+        confirmButton: 'btn btn-primary',
+        cancelButton: 'btn btn-gray 500'
+    },
+    buttonsStyling: false
+    });
+
+    function confirmDelete() {
+        swalWithBootstrapButtons.fire({
+            icon: 'warning',
+            title: 'Delete Confirmation',
+            text: 'Are you sure for delete this data?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Jika pengguna mengonfirmasi penghapusan, lanjutkan dengan pengiriman formulir
+                // Kembalikan true untuk melanjutkan penghapusan
+                document.getElementById('deleteForm').submit(); 
+                return true;
+            } else {
+                return false; // Kembalikan false untuk membatalkan penghapusan
+            }
+        });
+        return false; // Kembalikan false untuk mencegah pengiriman formulir secara otomatis
+    }
+
+</script>
+{% endblock javascripts %}

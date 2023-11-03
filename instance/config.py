@@ -1,0 +1,24 @@
+SECRET_KEY = 'qwerty123'
+
+# Create Session config
+SESSION_TYPE = 'filesystem'
+SESSION_SQLALCHEMY_TABLE = 'sessions'
+SESSION_PERMANENT = False
+SESSION_USER_SIGNER = True
+
+# Create in-memory database
+DATABASE_FILE = 'IRTEK_ROAD'
+SQLALCHEMY_DATABASE_URI = 'mysql://admin:admin@localhost/' + DATABASE_FILE
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+# Create Security Config
+SECURITY_PASSWORD_SALT = '123456789'
+SECURITY_EMAIL_SENDER='admin@app'
+
+# Create EMail Configuration
+MAIL_SERVER='smtp.mailtrap.io'
+MAIL_PORT=2525
+MAIL_USE_SSL=False
+MAIL_USERNAME='4e6c1b5327b88e'
+MAIL_PASSWORD='420b1e0e77800e'
+MAIL_USE_TLS=True

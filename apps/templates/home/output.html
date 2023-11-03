@@ -1,0 +1,231 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% endblock stylesheets %}
+ 
+{% block content %}
+
+   <div class="row pt-4 px-4">
+        <div class="col-12">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                    {% if 'report' in segment %}
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('views.report') }}">
+                                <i class="fa-solid fa-table-list pe-2" style="color: #838383;"></i>Report
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active">Result</li>
+                    {% else %}
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('views.index') }}">
+                                <i class="fa-solid fa-gauge pe-2" style="color: #838383;"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('views.detect') }}">Detect</a></li>
+                        <li class="breadcrumb-item active">Result</li>
+                    {% endif %}
+                </ol>
+            </nav>
+        </div>
+   </div>
+    <div class="row pt-2 ps-4 pe-4">
+        <div class="col-12 col-xl-8 mb-4">
+            <div class="card border-0 shadow">
+                <div class="card-header bg-secondary">
+                    <div style="display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: space-between;">
+                        Video Output
+                        
+                       
+                        <form action="/stopcam" method="post">
+                            <button type="submit" name="stop_thread" class="btn btn-danger">Stop Detection</button>
+                        </form>
+                    
+                       
+                    </div>
+                               
+                </div>
+                <div class="card-body bg-grey">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <img src="{{ config.ASSETS_ROOT}}/img/waitcamera.png" alt="infrared camera" id="flir-camera" width="1080">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xl-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card border-0 shadow">
+                        <div class="card-header bg-secondary border-bottom">
+                            Road Data
+                        </div>
+                        <div class="card-body" style="justify-content: center;">
+                            <table>
+                                <tr>
+                                    <td style="text-align: left;"><b>Province</b></td>
+                                    <td style="text-align: left;">: {{ get_province_name(data.province) }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;"><b>City</b></td>
+                                    <td style="text-align: left;">:  {{ data.city }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;"><b>Street Name</b></td>
+                                    <td style="text-align: left;">: {{ data.street_name }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 pt-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-header border-0">
+                            Total Detection
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between ">
+                                <div>
+                                    <div class="h6 mb-0 d-flex align-items-center">
+                                        <i class="fa-solid fa-road-circle-check me-2"></i>
+                                        Potholes
+                                    </div>
+                                    <div class="small card-stats">
+                                        Lubang
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="d-flex align-items-center fw-bold">
+                                        <h5 id="pathole">...</h5>
+                                        <i class="fa-solid fa-circle-up ms-2" style="color: #696969;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between pt-3">
+                                <div>
+                                    <div class="h6 mb-0 d-flex align-items-center">
+                                        <i class="fa-solid fa-road-circle-check me-2"></i>
+                                        Alligator Cracking
+                                    </div>
+                                    <div class="small card-stats">
+                                        Retak Buaya
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="d-flex align-items-center fw-bold">
+                                        <h5 id="crocodile">...</h5>
+                                        <i class="fa-solid fa-circle-up ms-2" style="color: #696969;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between pt-3">
+                                <div>
+                                    <div class="h6 mb-0 d-flex align-items-center">
+                                        <i class="fa-solid fa-road-circle-check me-2"></i>
+                                        Transverse Cracking
+                                    </div>
+                                    <div class="small card-stats">
+                                        Retak Melintang
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="d-flex align-items-center fw-bold">
+                                        <h5 id="transversal">...</h5>
+                                        <i class="fa-solid fa-circle-up ms-2" style="color: #696969;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between pt-3">
+                                <div>
+                                    <div class="h6 mb-0 d-flex align-items-center">
+                                        <i class="fa-solid fa-road-circle-check me-2"></i>
+                                        Longitudinal Cracking
+                                    </div>
+                                    <div class="small card-stats">
+                                        Retak Memanjang
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="d-flex align-items-center fw-bold">
+                                        <h5 id="longitudinal">...</h5>
+                                        <i class="fa-solid fa-circle-up ms-2" style="color: #696969;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 pt-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-header border-0">
+                            Chart Data Road Damage
+                        </div>
+                        <div class="card-body" style="justify-content: center;">
+                            <div id="newchart"></div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    
+    var flirCam = document.getElementById('flir-camera');
+    var elements = ['pathole', 'crocodile', 'longitudinal', 'transversal'];
+    var chartData = [];
+
+    $(document).ready(function() {
+        var socket = io();
+
+        socket.on('cam', function(data) {
+            flirCam.src = 'data:image/jpeg;base64,' + data;
+        });
+
+        socket.on('road_damage', function(data) {
+            elements.forEach(function(element) {
+                document.getElementById(element).innerHTML = data[element];
+            });
+            chartData = [
+                ['Type Damage', 'Total'],
+                ['Pathole', data.pathole],
+                ['Crocodile', data.crocodile],
+                ['Longitudinal', data.longitudinal],
+                ['Transversal', data.transversal]
+            ];
+            drawChart();
+          
+        });
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        
+    });
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable(chartData);
+
+        var options = {
+            title: 'Total Road Damage',
+            legend: 'bottom',
+            titleTextStyle: {
+                color: 'black',
+                fontSize: 15
+            },
+            colors: ['#272727', '#EA7317', '#2364AA', '#FEC601'],
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('newchart'));
+        chart.draw(data, options);
+    }
+</script>
+
+
+{% endblock javascripts %}

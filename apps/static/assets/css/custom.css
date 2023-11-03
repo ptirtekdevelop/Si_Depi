@@ -1,0 +1,108 @@
+
+
+.bgauth {
+  background-image: url('/static/assets/img/brand/3.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: white;
+  width: 100%;
+  height: 100%; /* Tambahkan ini jika perlu */
+}
+
+.regist {
+  margin-top: 75px;
+}
+
+
+  .bgauth .logocontent{
+    display: none;
+  }
+
+  .left-content {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    
+  }
+
+  .left-content .card {
+    padding: 20px 50px;
+    border: 0;
+    -moz-box-shadow: 10px 10px 5px #ccc;
+    -webkit-box-shadow: 10px 10px 5px #ccc;
+    box-shadow: 10px 10px 5px #ccc;
+    background-color: #FFD95A;
+
+  }
+
+  .right-content {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  .right-content img {
+    filter: drop-shadow(0 0 0.75rem #5c5b57);
+    height: 100%;
+  }
+
+  .jalan {
+    padding: 20px;
+    background-color: #FFD95A;
+    overflow: hidden; /* Memastikan video tidak keluar dari lingkaran */
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Tambahkan posisi relatif untuk penataan z-index */
+    border-top-left-radius: 50%; /* Radius kiri atas */
+    border-bottom-left-radius: 50%; /* Radius kiri bawah */
+    width: 100%;
+    height: 100%;
+  }
+
+@media (max-width: 767.98px) {
+  .bgauth{
+    background-image: url('/static/assets/img/brand/bglogin.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .bgauth .left-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bgauth .logocontent{
+    display: inline-block;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .regist {
+    margin-top: 0px;
+  }
+  
+  
+}
+
+.jalan video {
+  border-top-left-radius: 50%; /* Radius kiri atas */
+  border-bottom-left-radius: 50%; /* Radius kiri bawah */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Memastikan video mengisi seluruh area video-container */
+}
+
+
+
+.contents{
+  background-size: cover;
+    background-position: center;
+}
+
+.cardlogin {
+  background-color: #FFD95A;
+}

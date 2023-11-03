@@ -1,0 +1,42 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <div class="row pt-4 px-4">
+        <div class="col-12">
+            <div class="card border-0 shadow">
+                <div class="card-header border-bottom d-flex align-items-center justify-content-between">
+                    <h2 class="fs-5 fw-bold mb-0">Dashboards</h2>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <div class="startcam card shadow border-0 text-center p-0" style="width: 50rem;">                            
+                            <div class="card-body pb-5">
+                                <img src="{{ config.ASSETS_ROOT }}/img/webcamicon.jpg" class="avatar-xl rounded-circle" alt="Neil Portrait">
+                                <h4 class="pt-3">
+                                    Road Damage Detection and Classification
+                                </h4>
+                                <h1 id="count">.......</h1>
+                                <p class="text-gray my-4">
+                                    Do you want start a detection?
+                                </p>
+                                
+                                <a class="btn btn-secondary btnstartcam" href="{{ url_for('views.detect')}}">Start Detection</a>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}
