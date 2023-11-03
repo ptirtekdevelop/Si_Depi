@@ -44,7 +44,7 @@ For maximum results, please follow the following requirements:
 Based application is python program you need to use the application and install based the instruction below.
 1. Install python
 ```
-$ sudo apt install python3.10
+sudo apt install python3.10
 ```
 2. Clone the repo
 ```
@@ -52,7 +52,7 @@ https://github.com/ptirtekdevelop/Si_Depi.git
 ```
 3. Install library on OS
 ```
-$ sudo apt-get update && sudo apt-get upgrade
+sudo apt-get update && sudo apt-get upgrade
 
 ```
 ```
@@ -61,11 +61,11 @@ sudo apt-get install libmysqlclient-dev default-libmysqlclient-dev build-essenti
 4. Create virtual environment
 - Open terminal and enter to github directory has been clone or download
 ```
-$ cd Si_Depi
+cd Si_Depi
 ```
 - Create environment
 ```
-$ virtualenv env
+virtualenv env
 ```
 - Activate enviroment
 ```
@@ -73,15 +73,15 @@ source env/bin/activate
 ```
 5. Install library for application
 ```
-$ pip3 install --upgrade pip
-$ pip3 install -r requirements.txt
+pip3 install --upgrade pip
+pip3 install -r requirements.txt
 ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Create Database
 1. Open terminal, run the command for enter database and enter
 ```
-$ sudo mysql
+sudo mysql
 ```
 2. Create database
 ```
@@ -104,8 +104,8 @@ EXIT;
 Make sure you are in Si Depi Directory
 1. Set environment application
 ```
-$ export FLASK_APP=run.py
-$ export FLASK_ENV=production
+export FLASK_APP=run.py
+export FLASK_ENV=production
 ```
 2. Running Program
 ```

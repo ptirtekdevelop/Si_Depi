@@ -38,16 +38,15 @@
             <div class="card border-0 shadow">
                 <div class="card-header bg-secondary">
                     <div style="display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: space-between;">
-                        Video Output
-                        
-                       
-                        <form action="/stopcam" method="post">
+                        Video Output   
+                        <form action="/stopcam" method="post"  onsubmit="showLoading()">
                             <button type="submit" name="stop_thread" class="btn btn-danger">Stop Detection</button>
                         </form>
-                    
-                       
+                        <div id="loading" style="display: none;">
+                            Loading...
+                        </div>
                     </div>
-                               
+                    
                 </div>
                 <div class="card-body bg-grey">
                     <div style="display: flex; justify-content: center; align-items: center;">
@@ -208,6 +207,11 @@
         google.charts.setOnLoadCallback(drawChart);
         
     });
+
+    function showLoading() {
+        // Tampilkan pesan loading
+        document.getElementById("loading").style.display = "block";
+    }
 
     function drawChart() {
         var data = google.visualization.arrayToDataTable(chartData);

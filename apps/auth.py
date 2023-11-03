@@ -101,29 +101,29 @@ def logout():
     return redirect(url_for('auth.login'))
 
 
-@auth.errorhandler(403)
+@auth.app_errorhandler(403)
 def access_forbidden(error):
     return render_template('home/page-403.html'), 403
 
-@auth.errorhandler(400)
+@auth.app_errorhandler(400)
 def handle_bad_request(error):
     return render_template('home/page-403.html'), 400
 
 
-@auth.errorhandler(404)
+@auth.app_errorhandler(404)
 def page_not_found(error):
     return render_template('home/page-404.html'), 404
 
-@auth.errorhandler(405)
+@auth.app_errorhandler(405)
 def method_not_allow(error):
     return render_template('home/page-403.html'), 405
 
 
-@auth.errorhandler(403)
+@auth.app_errorhandler(403)
 def handle_cors_error(error):
     return render_template('home/page-403.html'), 403
 
 
-@auth.errorhandler(500)
+@auth.app_errorhandler(500)
 def internal_server_error(error):
     return render_template('home/page-500.html'), 500
